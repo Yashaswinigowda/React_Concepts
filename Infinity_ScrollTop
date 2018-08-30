@@ -1,0 +1,140 @@
+
+/* The following code explains how can we get the scroll Position
+* By using scrollTop, scrollHeight and clientHeight;
+* NOTE: paste this in any IDE and check or in any w3 schools code.
+*/
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#myDIV {
+    height: 250px;
+    width: 250px;
+    overflow: auto;
+}
+
+#content {
+    height: 800px;
+    width: 2000px;
+    background-color: coral;
+}
+</style>
+</head>
+<body>
+
+<p>Scroll inside the div element to display the number of pixels the content of div is scrolled horizontally and vertically.
+ <p> <b>scrollTop </b>: The scrollTop property sets or returns the number of pixels an element's content is scrolled vertically. </p>
+<p> <b>scrollLeft </b>: Use the scrollLeft property to set or return the number of pixels an element's content is scrolled horizontally.</p>
+
+<p> <b>clientHeight </b>: Get the height of a element, we can also get width and padding by clientwidth and clientPadding etc ..</p>
+
+<p> <b>scrollHeight </b>: The scrollHeight property returns the entire height of an element in pixels, including padding</p>
+</p>
+
+<div id="myDIV" onscroll="myFunction()">
+  <div id="content">Scroll inside me!</div>
+</div>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    var elmnt = document.getElementById("myDIV");
+    var x = elmnt.scrollLeft;
+    var y = elmnt.scrollTop;
+    var Z = (elmnt.scrollTop + elmnt.clientHeight);
+    var aa = elmnt.scrollHeight;
+
+
+    // formula to know whether the scroll had reached the end of the div
+
+    if (elmnt.scrollHeight - elmnt.scrollTop === elmnt.clientHeight)
+    {
+        console.log('scrolled bottom');
+    }
+
+    // or
+
+    if (elmnt.scrollTop + elmnt.clientHeight === elmnt.scrollHeight)
+    {
+        console.log('scrolled bottom');
+    }
+
+    document.getElementById ("demo").innerHTML = "Horizontally: " + x + "px<br>Vertically: " + y + "px <br>" + "Scrolltop+clientHeight" + Z + "px<br>scrollHeight: " +aa ;
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+/* Code from my project */
+
+import React from 'react';
+import SlidePanel from 'terra-slide-panel';
+import PropTypes from 'prop-types';
+
+class InfiniteSlidePanel extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.onPanelScrolling = this.onPanelScrolling.bind(this);
+    this.handleOnPanelScrolling = this.handleOnPanelScrolling.bind(this);
+  }
+
+  componentDidMount() {
+    this.slidePanelChild = document.querySelector('#mpc-List-SlidePanel div');
+    if (this.slidePanelChild) {
+      this.slidePanelChild.addEventListener('scroll', this.handleOnPanelScrolling);
+    }
+  }
+
+
+  componentWillUnmount() {
+    this.slidePanelChild.removeEventListener('scroll', this.handleOnPanelScrolling);
+  }
+
+  onPanelScrolling(slidePanelChild) {
+    if (slidePanelChild.scrollTop + slidePanelChild.clientHeight >= slidePanelChild.scrollHeight) {  // scroll hits the bottom
+      if (this.props.handleScrollAtBottom) {
+        this.props.handleScrollAtBottom();
+      }
+    }
+  }
+
+
+  handleOnPanelScrolling() {
+    this.onPanelScrolling(this.slidePanelChild);
+  }
+
+  render() {
+    return (
+      <SlidePanel
+        style={{ border: '1px solid #c8cacb' }}
+        id="mpc-List-SlidePanel"
+        mainContent={this.props.mainContent}
+        panelContent={this.props.panelContent}
+        panelBehavior="overlay"
+        panelPosition="end"
+        panelSize="large"
+        isOpen
+        isFullscreen
+        fill
+      />
+    );
+  }
+}
+
+InfiniteSlidePanel.propTypes = {
+  mainContent: PropTypes.node,
+  panelContent: PropTypes.node,
+  handleScrollAtBottom: PropTypes.func,
+};
+
+export default InfiniteSlidePanel;

@@ -1,0 +1,62 @@
+
+/*.App {
+  text-align: center;
+}
+
+.App {
+  margin: 0 auto;
+  text-align: left;
+  width: 800px;
+}*/
+.About-inventory{
+  position: absolute;
+  font-family: Poppins-Medium;
+  font-size: 31px;
+  color: #222222;
+  letter-spacing: 0;
+  opacity: 100%;
+  width: 629px;
+  margin: 246px 246px 246px 246px;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+.customers td, .customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.customers{
+  width:80%;
+}
+.customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
